@@ -1,0 +1,86 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f2f2f2;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    width: 80%;
+    max-width: 600px; /* Limit the maximum width of the form */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex; /* Enable flexbox layout */
+    flex-wrap: wrap; /* Wrap elements into a new row when there's no space */
+    justify-content: space-between; /* Create two columns */
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    flex-basis: 48%; /* Set the width of labels to 48% for two columns */
+}
+
+input[type="text"],
+input[type="number"],
+select,
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    width: 100%; /* Take up full width within their column */
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    width: 100%; /* Make the submit button full-width */
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+.center-button {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+.validation-error-box {
+    color: red;
+}
