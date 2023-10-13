@@ -1,0 +1,119 @@
+﻿@model ConferenceRegistration.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Registration Page";
+}
+
+<main>
+    <h1>Conference Registration</h1>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Label("Full Name:")
+        @Html.TextBoxFor(x => x.FullName, htmlAttributes: new { required = "required", @class = "form-control" })
+
+        @Html.Label("Age:")
+        @Html.TextBoxFor(x => x.Age, htmlAttributes: new { type = "number", required = "required", @class = "form-control" })
+
+        @*<label for="full_name">Full Name:</label>
+            <input type="text" name="fullname" id="full_name" required><br>*@
+
+        @*<label for="age">Age:</label>
+            <input type="number" name="age" id="age" required><br>*@
+
+        @*@Html.Label("Regional Center:")
+            {
+                var placeHolder = new SelectListItem[] { new SelectListItem { Disabled = true, Text = "Select your region..", Selected = true, Value = "" } };
+
+                var selectList = placeHolder.Concat(new SelectList(Model.RegionalCenters));
+                @Html.DropDownListFor(m => m.RegionalCenter, selectList, new { required = "required" })
+            }*@
+
+        @*<label for="regional_center">Regional Center:</label>
+            <select name="regional_center" id="regional_center" required>
+                <option value="" disabled selected>Select a Regional Center</option>
+                <option value="Center1">Kyiv</option>
+                <option value="Center2">Lviv</option>
+                <option value="Center3">Ivano-Frankisvk</option>
+                <option value="Center4">Harkiv</option>
+                <option value="Center5">Zaporizhya</option>
+            </select><br>*@
+
+        @Html.Label("Email:")
+        @Html.TextBoxFor(m => m.Email, htmlAttributes: new { type = "email", required = "required", @class = "form-control" })
+        @*<label for="email">Email:</label>
+            <input type="email" name="email" id="email" required><br>*@
+
+        @Html.Label("Phone:")
+        @Html.TextBoxFor(m => m.Phone, htmlAttributes: new { type = "tel", @class = "form-control" })
+
+        @*<label for="phone">Phone:</label>
+            <input type="tel" name="phone" id="phone"><br><br>*@
+
+        @Html.Label("Password")
+        @*@Html.PasswordFor(m => m.Password, )*@
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+
+
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+
+
+        @*<label for="password">Password:</label>
+            <input type="password" name="password" id="password" required><br>*@
+
+        <div class="validation-error-box">
+            @Html.ValidationSummary()
+        </div>
+
+        <div class="center-button">
+            <input type="submit" value="Register">
+        </div>
+    }
+</main>
+
+@*@model ConferenceRegistration.Models.RegisterViewModel
+    @{
+        ViewBag.Title = "Register";
+    }
+
+    <main aria-labelledby="title">
+        <h2 id="title">@ViewBag.Title.</h2>
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Create a new account.</h4>
+    <a href="~/Views/Account/ResetPassword.cshtml">~/Views/Account/ResetPassword.cshtml</a>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="row">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-md-2 col-md-10">
+                    <input type="submit" value="Register" class="btn btn-outline-dark" />
+                </div>
+            </div>
+        }
+    </main>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

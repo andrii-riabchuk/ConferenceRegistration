@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferenceParticipantsRegis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferenceParticipantsRegistration.Tests", "ConferenceParticipantsRegistration.Tests\ConferenceParticipantsRegistration.Tests.csproj", "{47E7E273-8DF1-46C8-8982-8642456CAD54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferenceRegistration", "ConferenceRegistration\ConferenceRegistration.csproj", "{9C4ACCCE-D14F-4905-94D4-64DB989E3A3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{47E7E273-8DF1-46C8-8982-8642456CAD54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E7E273-8DF1-46C8-8982-8642456CAD54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E7E273-8DF1-46C8-8982-8642456CAD54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C4ACCCE-D14F-4905-94D4-64DB989E3A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C4ACCCE-D14F-4905-94D4-64DB989E3A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C4ACCCE-D14F-4905-94D4-64DB989E3A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C4ACCCE-D14F-4905-94D4-64DB989E3A3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

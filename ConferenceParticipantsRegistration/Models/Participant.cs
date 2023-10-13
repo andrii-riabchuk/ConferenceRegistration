@@ -18,6 +18,8 @@ namespace ConferenceParticipantsRegistration.Database
         [Required]
         public string Password { get; set; }
 
+        public DateTime EnrollmentDate { get; set; }
+
         public int? RegionalCenterId { get; set; }
         public virtual RegionalCenter RegionalCenter { get; set; }
     }

@@ -37,7 +37,8 @@ namespace ConferenceParticipantsRegistration.Controllers
                     Email = participantView.Email,
                     Phone = participantView.Phone,
                     Age = 20,
-                    Password = participantView.Password
+                    Password = participantView.Password,
+                    EnrollmentDate = DateTime.Now
                 };
                 dbContext.Participants.Add(participant);
                 dbContext.SaveChanges();
