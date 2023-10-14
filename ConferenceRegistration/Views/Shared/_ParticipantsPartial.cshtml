@@ -1,0 +1,14 @@
+﻿@model IEnumerable <ConferenceRegistration.Models.Participant>
+@using Microsoft.AspNet.Identity;
+
+
+@foreach (var item in Model)
+{
+
+    <tr style="background-color:@(User.Identity.GetUserId() == item.Id ? "#bdf5c8" : "")">
+        <td>@item.FullName</td>
+        <td>@(item.Region?.Name)</td>
+        <td>@item.Age</td>
+        <td>@item.PhoneNumber</td>
+    </tr>
+}

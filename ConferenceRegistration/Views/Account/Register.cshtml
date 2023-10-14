@@ -6,7 +6,7 @@
 
 <main>
     <h1>Conference Registration</h1>
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "register-form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -16,19 +16,15 @@
         @Html.Label("Age:")
         @Html.TextBoxFor(x => x.Age, htmlAttributes: new { type = "number", required = "required", @class = "form-control" })
 
-        @*<label for="full_name">Full Name:</label>
-            <input type="text" name="fullname" id="full_name" required><br>*@
 
-        @*<label for="age">Age:</label>
-            <input type="number" name="age" id="age" required><br>*@
+        @Html.Label("Regional Center:")
+        {
+            var placeHolder = new SelectListItem[] { new SelectListItem { Disabled = true, Text = "Select your region", Selected = true, Value = "" } };
+            var regions = Model.Regions.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() });
+            var selectList = placeHolder.Concat(regions);
 
-        @*@Html.Label("Regional Center:")
-            {
-                var placeHolder = new SelectListItem[] { new SelectListItem { Disabled = true, Text = "Select your region..", Selected = true, Value = "" } };
-
-                var selectList = placeHolder.Concat(new SelectList(Model.RegionalCenters));
-                @Html.DropDownListFor(m => m.RegionalCenter, selectList, new { required = "required" })
-            }*@
+            @Html.DropDownListFor(m => m.RegionId, selectList, new { required = "required" })
+        }
 
         @*<label for="regional_center">Regional Center:</label>
             <select name="regional_center" id="regional_center" required>

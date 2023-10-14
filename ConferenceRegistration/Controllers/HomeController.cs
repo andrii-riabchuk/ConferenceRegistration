@@ -1,30 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Data.SqlClient;
 using System.Web.Mvc;
+using ConferenceRegistration.Models;
+using ConferenceRegistration.Services;
 
-namespace ConferenceRegistration.Controllers
+namespace ConferenceParticipantsRegistration.Controllers
 {
     public class HomeController : Controller
     {
+        private ParticipantsService _participantsService;
+        private const int _defaultPageSize = 9;
+        public HomeController()
+        {
+            _participantsService = new ParticipantsService();
+        }
+
+        [Authorize]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Participants");
         }
 
-        public ActionResult About()
+        [Authorize]
+        public ActionResult Participants(int page = 1, int pageSize = _defaultPageSize)
         {
-            ViewBag.Message = "Your application description page.";
+            var participants = _participantsService.GetParticipantsForPage(pageSize, page - 1);
+            var totalPages = _participantsService.CalculatePagesCount(pageSize);
 
-            return View();
+            var participantsPage = new ParticipantsPage
+            {
+                Participants = participants,
+                Page = page,
+                TotalPages = totalPages
+            };
+
+            return View(participantsPage);
         }
 
-        public ActionResult Contact()
+        public ActionResult LoadParticipants(int page = 1,int pageSize = _defaultPageSize, int? sortBy = null, bool ascending = true)
         {
-            ViewBag.Message = "Your contact page.";
+            page -= 1;
 
-            return View();
+            var participants = _participantsService.GetParticipantsForPage(pageSize, page, sortBy, ascending);
+
+            return PartialView("_ParticipantsPartial", participants);
         }
     }
 }

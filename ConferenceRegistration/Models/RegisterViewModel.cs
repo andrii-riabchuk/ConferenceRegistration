@@ -11,9 +11,11 @@ namespace ConferenceRegistration.Models
         [Required(ErrorMessage = "{0} is required.")]
         public string FullName { get; set; }
         [Required]
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         public string Phone { get; set; }
+
+        public string RegionId { get; set; }
 
         [Required]
         [EmailAddress]
@@ -26,13 +28,15 @@ namespace ConferenceRegistration.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required]  
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public List<Region> Regions { get; set; }
     }
 }
-
 
 public class ParticipantView
 {

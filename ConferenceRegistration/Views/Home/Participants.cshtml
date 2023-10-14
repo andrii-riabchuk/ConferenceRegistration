@@ -1,0 +1,113 @@
+﻿@model ConferenceRegistration.Models.ParticipantsPage
+@using Microsoft.AspNet.Identity
+
+<main>
+    <h2>All Participants</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable-header">
+                        <button> Full Name<span aria-hidden="true"></span></button>
+                    </th>
+                    <th class="sortable-header">
+                        <button> Region<span aria-hidden="true"></span></button>
+                    </th>
+                    <th class="sortable-header">
+                        <button> Age<span aria-hidden="true"></span></button>
+                    </th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody id="participants-table">
+            </tbody>
+        </table>
+        <div class="table-navigation">
+            <button class="btn-previous" id="btn-previous">Prev</button>
+            <span class="page-info" id="page-info">Page @Model.Page of @Model.TotalPages</span>
+            <button class="btn-next" id="btn-next">Next</button>
+        </div>
+    </div>
+</main>
+
+<script type="text/javascript">
+    let page = @Model.Page;
+
+    $("#participants-table").load(`LoadParticipants?page=${page}`);
+
+    $("#btn-next").click(() => {
+        if (page == @Model.TotalPages) return;
+
+        page++;
+        updatePageInfo();
+        $("#participants-table").load(`LoadParticipants${location.search}`);
+    });
+
+    $("#btn-previous").click(() => {
+        if (page == 1) return;
+
+        page--;
+        updatePageInfo();
+        $("#participants-table").load(`LoadParticipants${location.search}`);
+    });
+
+    function updatePageInfo(sortBy = null, asc = null) {
+        $("#page-info").text(`Page ${page} of @Model.TotalPages`);
+
+        let params = new URLSearchParams(location.search);
+        if (page) params.set("page", page);
+        if (sortBy) {
+            params.set("sortBy", sortBy);
+            if (asc != null) params.set("ascending", asc);
+        }
+
+        if (history.pushState) {
+            let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?${params.toString()}`;
+            window.history.pushState({ path: newurl }, '', newurl);
+        }
+    }
+</script>
+
+<script>
+
+    function handleHeaderClick(event) {
+        let tgt = event.currentTarget;
+        setColumnHeaderSort(tgt.getAttribute('data-column-index'));
+    }
+
+    function setColumnHeaderSort(columnIndex) {
+        let columnHeaders = $(".sortable-header");
+
+        for (let i = 0; i < columnHeaders.length; i++) {
+            let header = columnHeaders[i];
+
+            if (columnIndex == i) {
+                let value = header.getAttribute('aria-sort');
+
+                if (value === 'ascending') {
+                    header.setAttribute('aria-sort', 'descending');
+                    updatePageInfo(columnIndex, false);
+                    loadSorted();
+                }
+                else {
+                    header.setAttribute('aria-sort', 'ascending');
+                    updatePageInfo(columnIndex, true);
+                    loadSorted();
+                }
+            } else {
+                header.removeAttribute('aria-sort');
+            }
+        }
+    }
+
+    function loadSorted() {
+        $("#participants-table").load(`LoadParticipants${location.search}`);
+    }
+
+    $(".sortable-header").each(function (i) {
+        $(this).attr("data-column-index", i);
+    });
+
+    $(".sortable-header").click(handleHeaderClick);
+</script>

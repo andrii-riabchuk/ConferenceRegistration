@@ -29,7 +29,7 @@ h1 {
     color: #333;
 }
 
-form {
+form.login-form, form.register-form {
     width: 100%;
     max-width: 600px; /* Limit the maximum width of the form */
     margin: 0 auto;
@@ -81,6 +81,7 @@ input[type="submit"] {
     color: red;
 }
 
+/* Participants Table, Sorting */
 .table-container {
     width: 80%;
     max-width: 800px;
@@ -97,9 +98,10 @@ input[type="submit"] {
     -webkit-box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
 }
 
-table {
+.table-container table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 table, th, td {
@@ -113,7 +115,6 @@ th, td {
 
 th {
     background-color: #2c2459;
-    ;
 }
 
 .table-container th {
@@ -122,6 +123,69 @@ th {
     color: #fff;
     line-height: 1.4;
     background-color: #2c2459;
+}
+
+.table-container th[aria-sort="descending"] span::after {
+    content: "▼";
+    color: currentcolor;
+    font-size: 100%;
+    top: 0;
+}
+
+.table-container th[aria-sort="ascending"] span::after {
+    content: "▲";
+    color: currentcolor;
+    font-size: 100%;
+    top: 0;
+}
+
+.table-container.show-unsorted-icon th:not([aria-sort]) button span::after {
+    content: "♢";
+    color: currentcolor;
+    font-size: 100%;
+    position: relative;
+    top: -3px;
+    left: -4px;
+}
+
+.table-container th button {
+    background: transparent;
+    color: #fff;
+    border: none;
+    padding: 4px;
+    margin: 1px;
+    font-size: 100%;
+    font-weight: bold;
+    border: none;
+    display: inline;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+}
+
+.table-container th button:focus,
+.table-container th button:hover {
+    /*padding: 2px;*/
+    /*border: 2px solid currentcolor;*/
+    /*background-color: #e5f4ff;*/
+}
+
+.table-container th button:focus span,
+.table-container th button:hover span {
+    right: 2px;
+}
+
+.table-container th:not([aria-sort]) button:focus span::after,
+.table-container th:not([aria-sort]) button:hover span::after {
+    content: "▼";
+    color: currentcolor;
+    font-size: 100%;
+    top: 0;
 }
 
 .table-container td {
@@ -135,14 +199,11 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-/*.highlight {
-    background-color: yellow;
-}*/
-
 .table-navigation {
     text-align: center;
     margin: 20px;
 }
+/**/
 
 .btn-previous,
 .btn-next {
