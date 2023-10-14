@@ -1,7 +1,9 @@
 ﻿using System.Data.SqlClient;
+using System.Web;
 using System.Web.Mvc;
 using ConferenceRegistration.Models;
 using ConferenceRegistration.Services;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace ConferenceParticipantsRegistration.Controllers
 {
@@ -9,9 +11,19 @@ namespace ConferenceParticipantsRegistration.Controllers
     {
         private ParticipantsService _participantsService;
         private const int _defaultPageSize = 9;
-        public HomeController()
+        public HomeController() { }
+
+        public ParticipantsService ParticipantsService
         {
-            _participantsService = new ParticipantsService();
+            get
+            {
+                if (_participantsService == null)
+                {
+                    var dbContext = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                    _participantsService = new ParticipantsService(dbContext);
+                }
+                return _participantsService;
+            }
         }
 
         [Authorize]
@@ -23,8 +35,8 @@ namespace ConferenceParticipantsRegistration.Controllers
         [Authorize]
         public ActionResult Participants(int page = 1, int pageSize = _defaultPageSize)
         {
-            var participants = _participantsService.GetParticipantsForPage(pageSize, page - 1);
-            var totalPages = _participantsService.CalculatePagesCount(pageSize);
+            var participants = ParticipantsService.GetParticipantsForPage(pageSize, page - 1);
+            var totalPages = ParticipantsService.CalculatePagesCount(pageSize);
 
             var participantsPage = new ParticipantsPage
             {
@@ -40,7 +52,7 @@ namespace ConferenceParticipantsRegistration.Controllers
         {
             page -= 1;
 
-            var participants = _participantsService.GetParticipantsForPage(pageSize, page, sortBy, ascending);
+            var participants = ParticipantsService.GetParticipantsForPage(pageSize, page, sortBy, ascending);
 
             return PartialView("_ParticipantsPartial", participants);
         }

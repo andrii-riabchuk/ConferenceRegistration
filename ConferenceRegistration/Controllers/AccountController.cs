@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using ConferenceRegistration.Models;
 using System.Runtime.InteropServices;
 using System.Data.Entity;
+using ConferenceRegistration.Services;
 
 namespace ConferenceRegistration.Controllers
 {
@@ -19,12 +20,13 @@ namespace ConferenceRegistration.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ParticipantManager _userManager;
+        private ParticipantsService _participantsService { get; set; }
 
         public AccountController()
         {
         }
 
-        public AccountController(ParticipantManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ParticipantManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -51,6 +53,19 @@ namespace ConferenceRegistration.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        public ParticipantsService ParticipantService
+        {
+            get
+            {
+                if (_participantsService == null)
+                {
+                    var dbContext = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                    _participantsService = new ParticipantsService(dbContext);
+                }               
+                return _participantsService;
             }
         }
 
@@ -246,6 +261,17 @@ namespace ConferenceRegistration.Controllers
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
+        }
+
+        //
+        // POST: /Account/ExternalLogin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            // Request a redirect to the external login provider
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
         //
