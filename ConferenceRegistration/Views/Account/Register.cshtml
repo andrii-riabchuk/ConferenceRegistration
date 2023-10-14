@@ -26,16 +26,6 @@
             @Html.DropDownListFor(m => m.RegionId, selectList, new { required = "required" })
         }
 
-        @*<label for="regional_center">Regional Center:</label>
-            <select name="regional_center" id="regional_center" required>
-                <option value="" disabled selected>Select a Regional Center</option>
-                <option value="Center1">Kyiv</option>
-                <option value="Center2">Lviv</option>
-                <option value="Center3">Ivano-Frankisvk</option>
-                <option value="Center4">Harkiv</option>
-                <option value="Center5">Zaporizhya</option>
-            </select><br>*@
-
         @Html.Label("Email:")
         @Html.TextBoxFor(m => m.Email, htmlAttributes: new { type = "email", required = "required", @class = "form-control" })
         @*<label for="email">Email:</label>
@@ -54,10 +44,6 @@
 
         @Html.LabelFor(m => m.ConfirmPassword)
         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-
-
-        @*<label for="password">Password:</label>
-            <input type="password" name="password" id="password" required><br>*@
 
         <div class="validation-error-box">
             @Html.ValidationSummary()

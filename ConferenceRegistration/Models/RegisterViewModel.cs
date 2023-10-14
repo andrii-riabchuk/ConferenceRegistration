@@ -37,17 +37,3 @@ namespace ConferenceRegistration.Models
         public List<Region> Regions { get; set; }
     }
 }
-
-public class ParticipantView
-{
-    [Required(ErrorMessage = "{0} is required.")]
-    public string FullName { get; set; }
-    public int? Age { get; set; }
-    public string Email { get; set; }
-    public string Phone { get; set; }
-    public string Password { get; set; }
-
-    public string RegionalCenter { get; set; }
-
-    public string[] RegionalCenters { get; set; }
-}
